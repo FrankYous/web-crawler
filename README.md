@@ -1,0 +1,1 @@
+Files on this repository are for boot.dev's "Build a Web Crawler" guided project.
