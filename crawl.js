@@ -1,7 +1,7 @@
 function normalizeURL (inputURL){
     const myURL = new URL(inputURL)
     const myHostname = myURL.hostname.toLowerCase()
-    var myPathname = myURL.pathname.toLowerCase()
+    let myPathname = myURL.pathname.toLowerCase()
     if (myPathname.at(-1) === '/'){
         myPathname = myPathname.slice(0,-1)
     }

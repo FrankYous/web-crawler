@@ -19,5 +19,9 @@
   "homepage": "https://github.com/FrankYous/web-crawler#readme",
   "devDependencies": {
     "jest": "^29.5.0"
+  },
+  "dependencies": {
+    "jsdom": "^21.1.1",
+    "jsdon": "^0.1.15"
   }
 }
