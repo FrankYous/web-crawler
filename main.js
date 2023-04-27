@@ -11,7 +11,7 @@ function main(){
             throw new Error('More than one input argument was entered.')
         } else {
             console.log(`Initializing the crawler at ${baseURL}...`)
-            crawlPage(baseURL)
+            crawlPage(baseURL, baseURL, )
         }
     }
     catch(err){

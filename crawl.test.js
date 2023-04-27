@@ -1,6 +1,7 @@
 const { test, expect } = require('@jest/globals')
 const { normalizeURL } = require('./crawl.js')
 const { getURLsFromHTML } = require('./crawl.js')
+const { domainIsSame } = require('./domainCheck.js')
 
 
 describe('normalizing the URL', () => {
@@ -62,5 +63,11 @@ describe('extracting URLs from HTML', () => {
             'https://www.gnu.org'
         )).toEqual(['https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements',
         'https://www.gnu.org/audio-video/philosophy-recordings.html#rms-201404070'])
+    })
+})
+
+describe('checking urls have the same domain', () =>{
+    test('compares domain names', () => {
+        expect (domainIsSame('https://www.bar.com','https://foo.bar.com')).toBeTruthy()
     })
 })

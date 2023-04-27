@@ -23,7 +23,7 @@ function getURLsFromHTML (htmlBody, baseURL){
     return links
 }
 
-async function crawlPage(baseURL){
+async function crawlPage(baseURL, currentURL, pages){
     const response = await fetch(baseURL)
     try {
         if (response.status >= 400){
