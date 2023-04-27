@@ -11,10 +11,16 @@ function normalizeURL (inputURL){
 function getURLsFromHTML (htmlBody, baseURL){
     const { JSDOM } = require('jsdom')
     const dom = new JSDOM(htmlBody)
-    let links = dom.window.document.querySelectorAll('a')
-    for (let link of links){
-        let linkURL = new URL(link)
+    const anchorTags = dom.window.document.querySelectorAll('a')
+    let links = []
+    for (const anchorTag of anchorTags){
+        let link = anchorTag.href
+        if (link[0] === '/'){
+            link = baseURL + link
+        }
+        links.push(link)
     }
+    return links
 }
 
 module.exports = {

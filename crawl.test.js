@@ -32,7 +32,7 @@ describe('extracting URLs from HTML', () => {
             <a href="/distros/free-distros.html">Try GNU/Linux</a></div>
             <div style="clear:both"></div>`,
             'https://www.gnu.org'
-        )).toBe('https://www.gnu.org/distros/free-distros.html');
+        )).toEqual(['https://www.gnu.org/distros/free-distros.html']);
     })
 
     test('returns external URLs unchanged', () => {
@@ -41,7 +41,7 @@ describe('extracting URLs from HTML', () => {
             href="https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements">
             Try parts of GNU</a></div>`,
             'https://www.gnu.org'
-        )).toBe('https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements')
+        )).toEqual(['https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements'])
     })
 
     test('extracts URLs from HTML - combined case', () => {
@@ -60,7 +60,7 @@ describe('extracting URLs from HTML', () => {
             <a href="/audio-video/philosophy-recordings.html#rms-201404070">
             the video explanation</a>.</p>`,
             'https://www.gnu.org'
-        )).toBe(['https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements',
+        )).toEqual(['https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements',
         'https://www.gnu.org/audio-video/philosophy-recordings.html#rms-201404070'])
     })
 })
