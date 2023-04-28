@@ -11,7 +11,7 @@ async function main(){
             throw new Error('More than one input argument was entered.')
         } else {
             console.log(`Initializing the crawler at ${baseURL}...`)
-            pages = await crawlPage(baseURL, baseURL,[])
+            const pages = await crawlPage(baseURL, baseURL,{})
             console.log('=====List of pages:=====')
             console.log(pages)
         }

@@ -34,7 +34,8 @@ async function crawlPage(baseURL, currentURL, pages){
 
     // Check if the URL is already in the list of visited pages    
     const normalizedCurrentURL = normalizeURL(currentURL)
-    if (pages.includes(normalizedCurrentURL)){
+    if (pages[normalizedCurrentURL] > 0){
+        pages[normalizedCurrentURL]++
         return pages
     } 
 
@@ -50,16 +51,17 @@ async function crawlPage(baseURL, currentURL, pages){
         }
         else {
             console.log(`Current page: ${normalizedCurrentURL}`)
-            pages.push(normalizedCurrentURL)
+            pages[normalizedCurrentURL] = 1
             const htmlBody = await response.text() // Gets full text of HTML body
             const pageURLs = getURLsFromHTML (htmlBody, baseURL)
             for (const pageURL of pageURLs){
-                await crawlPage(baseURL, pageURL, pages)
+                pages = await crawlPage(baseURL, pageURL, pages)
             }
         }
         return pages
     } catch (err) {
         console.log(err.message)
+        return pages
     }
 }
 
