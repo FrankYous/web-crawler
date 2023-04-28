@@ -1,9 +1,9 @@
 const { crawlPage } = require('./crawl.js')
 
 
-function main(){
-    inputCount = process.argv.length -2
-    baseURL = process.argv[2]
+async function main(){
+    const inputCount = process.argv.length -2
+    const baseURL = process.argv[2]
     try{
         if (inputCount < 1){
             throw new Error('No input argument was entered.')
@@ -11,7 +11,9 @@ function main(){
             throw new Error('More than one input argument was entered.')
         } else {
             console.log(`Initializing the crawler at ${baseURL}...`)
-            crawlPage(baseURL, baseURL, )
+            pages = await crawlPage(baseURL, baseURL,[])
+            console.log('=====List of pages:=====')
+            console.log(pages)
         }
     }
     catch(err){

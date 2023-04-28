@@ -1,3 +1,5 @@
+const { domainIsSame } = require('./domainCheck')
+
 function normalizeURL (inputURL){
     const myURL = new URL(inputURL)
     const myHostname = myURL.hostname
@@ -24,18 +26,38 @@ function getURLsFromHTML (htmlBody, baseURL){
 }
 
 async function crawlPage(baseURL, currentURL, pages){
-    const response = await fetch(baseURL)
+
+    // Check to see is the URLs are on the same domain
+    if (!domainIsSame(baseURL, currentURL)){
+        return pages
+    }
+
+    // Check if the URL is already in the list of visited pages    
+    const normalizedCurrentURL = normalizeURL(currentURL)
+    if (pages.includes(normalizedCurrentURL)){
+        return pages
+    } 
+
+    // Get the response of current URL
+    const response = await fetch(currentURL)
     try {
         if (response.status >= 400){
             throw new Error(`Encountered ${response.status} error`)
         }
         else if (!response.headers.get('content-type').includes('text/html')){
-            throw new Error('Error: The response is not text/html.')
+            const responseType = response.headers.get('content-type')
+            throw new Error(`Error: The response is not text/html. Response type: ${responseType}`)
         }
         else {
-            htmlBody = await response.text()
-            console.log(htmlBody)
+            console.log(`Current page: ${normalizedCurrentURL}`)
+            pages.push(normalizedCurrentURL)
+            const htmlBody = await response.text() // Gets full text of HTML body
+            const pageURLs = getURLsFromHTML (htmlBody, baseURL)
+            for (const pageURL of pageURLs){
+                await crawlPage(baseURL, pageURL, pages)
+            }
         }
+        return pages
     } catch (err) {
         console.log(err.message)
     }
