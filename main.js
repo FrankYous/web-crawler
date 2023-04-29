@@ -1,4 +1,5 @@
 const { crawlPage } = require('./crawl.js')
+const { printReport} = require('./report')
 
 
 async function main(){
@@ -12,8 +13,7 @@ async function main(){
         } else {
             console.log(`Initializing the crawler at ${baseURL}...`)
             const pages = await crawlPage(baseURL, baseURL,{})
-            console.log('=====List of pages:=====')
-            console.log(pages)
+            printReport(pages)
         }
     }
     catch(err){
